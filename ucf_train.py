@@ -6,7 +6,7 @@ from loss_function import AD_Loss, AD_rtfm_Loss
 from ucf_utils import test, get_ucf_dataloader
 from utils import train, save_experiment_results
 
-from model.model_iul_357_b import FadNet
+from model.model import FadNet
 
 
 def parse_args():
