@@ -7,7 +7,7 @@ from loss_function import AD_Loss
 from xd_utils import test, get_xd_dataloader
 from utils import train, save_experiment_results
 
-from model.model_iul_3711_b import FadNet
+from model.model import FadNet
 
 def parse_args():
     parser = argparse.ArgumentParser(description='FadNet gogogo!')
