@@ -11,8 +11,7 @@ class AD_Loss(nn.Module):
         loss = {}
         _label = _label.float()
         att = result['frame']
-        t = att.size(1)
-        anomaly = torch.topk(att, t // 16 + 1, dim=-1)[0].mean(-1)
+        anomaly = torch.topk(att, 13, dim=-1)[0].mean(-1)
         anomaly_loss = self.bce(anomaly, _label)
         cost = anomaly_loss
         loss['total_loss'] = round(cost.item(), 4)
@@ -41,8 +40,7 @@ class AD_rtfm_Loss(nn.Module):
         loss = {}
         _label = _label.float()
         att = result['frame']
-        t = att.size(1)
-        anomaly = torch.topk(att, t // 16 + 1, dim=-1)[0].mean(-1)
+        anomaly = torch.topk(att, 13, dim=-1)[0].mean(-1)
         rtfm_loss = sparsity(anomaly[anomaly.size(0) // 2:], 8e-3) + smooth(anomaly, 8e-4)
         anomaly_loss = self.bce(anomaly, _label)
         cost = anomaly_loss + rtfm_loss
