@@ -29,5 +29,5 @@ if __name__ == "__main__":
     net = FadNet(args.len_feature, flag="Test", a_nums=memory_block_number, n_nums=memory_block_number)
     torch.cuda.set_device(0)
     net = net.cuda()
-    path = '/home/DL/Gaozzzz/vp/FadNet/weights/ucf_best.pkl'
+    path = 'set your model path'
     valid(net, test_loader, model_file=path)
