@@ -33,8 +33,8 @@ if __name__ == "__main__":
     args = parse_args()
     args.memory_block_number = 60
     net = FadNet(args.len_feature, flag="Train", a_nums=args.memory_block_number, n_nums=args.memory_block_number)
-    experiment_name = 'model_iul_357_b'
-    run_number = 'model_iul_357_b_1'
+    experiment_name = 'model'
+    run_number = 'model_1'
     Cuda = 0
     torch.cuda.set_device(Cuda)  # set your gpu device
     net = net.cuda()
