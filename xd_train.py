@@ -11,7 +11,7 @@ from model.model import FadNet
 
 def parse_args():
     parser = argparse.ArgumentParser(description='FadNet gogogo!')
-    parser.add_argument('--num_iters', type=int, default=2000)
+    parser.add_argument('--num_iters', type=int, default=1000)
     parser.add_argument('--len_feature', type=int, default=1024)
     parser.add_argument('--memory_block_number', type=int, default=60)
     parser.add_argument('--lr', type=str, default=0.0001, help='learning rates for steps(list form)')
