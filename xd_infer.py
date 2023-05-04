@@ -2,7 +2,7 @@ import torch
 import argparse
 from xd_utils import valid, get_xd_test_dataloader
 
-from model.model import FadNet  # Model_6
+from model.model import FadNet
 
 
 def parse_args():
