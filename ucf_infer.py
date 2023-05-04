@@ -2,7 +2,7 @@ import torch
 import argparse
 from ucf_utils import valid, get_ucf_test_dataloader
 
-from model.model import FadNet  # Model_6
+from model.model import FadNet
 
 
 def parse_args():
