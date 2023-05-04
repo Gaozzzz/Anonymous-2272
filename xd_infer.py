@@ -31,5 +31,5 @@ if __name__ == "__main__":
     torch.cuda.set_device(0)
     net = net.cuda()
 
-    path = '/home/DL/Gaozzzz/vp/FadNet/weights/xd_best.pkl'
+    path = 'set your model path'
     valid(net, test_loader, model_file=path)
