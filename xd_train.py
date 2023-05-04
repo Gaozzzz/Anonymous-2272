@@ -31,8 +31,8 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    experiment_name = 'model_iul_3711_b'
-    run_number = 'model_iul_3711_1'
+    experiment_name = 'model'
+    run_number = 'model_1'
     Cuda = 0
     torch.cuda.set_device(Cuda)  # set your gpu device
 
