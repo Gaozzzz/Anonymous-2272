@@ -6,7 +6,7 @@ from model.model import FadNet
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='ILFormer gogogo!')
+    parser = argparse.ArgumentParser(description='FADNet gogogo!')
     parser.add_argument('--num_iters', type=int, default=2000)
     parser.add_argument('--len_feature', type=int, default=1024)
     parser.add_argument('--output_path', type=str, default='experiment/')
