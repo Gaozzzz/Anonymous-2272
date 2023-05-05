@@ -1,3 +1,5 @@
+FADNet: Fully Attention-based Dual Memory Bank Network for Weakly Supervised Video Anomaly Detection
+
 PaperID-2272 for acm mm2023
 
 ## Data Preparation
