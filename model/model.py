@@ -57,8 +57,8 @@ class FadNet(Module):
         self.embedding = Inception_dxlstm(input_size, 1024)
         self.selfatt = Transformer(1024, 4, 8, 128, 512, dropout=0.5)
         self.cls_head = ADCLS_head(2048, 1)
-        self.Amemory = Memory_Unit_transformer(nums=a_nums, dim=1024)
-        self.Nmemory = Memory_Unit_transformer(nums=n_nums, dim=1024)
+        self.Mem_1 = Memory_Unit_transformer(nums=a_nums, dim=1024)
+        self.Mem_2 = Memory_Unit_transformer(nums=n_nums, dim=1024)
 
     def forward(self, x):
         if len(x.size()) == 4:
@@ -70,24 +70,24 @@ class FadNet(Module):
         x = self.embedding(x)
         x = self.selfatt(x)
         if self.flag == "Train":
-            N_x = x[:b * n // 2]  #### Normal part
-            A_x = x[b * n // 2:]  #### Abnormal part
-            A_aug = self.Amemory(A_x)
-            N_Aaug = self.Nmemory(A_x)
-            A_Naug = self.Amemory(N_x)
-            N_aug = self.Nmemory(N_x)
+            N_x = x[:b * n // 2]
+            A_x = x[b * n // 2:]
+            Mem_1_aug = self.Mem_1(A_x)
+            Mem_2_Aaug = self.Mem_2(A_x)
+            Mem_1_Naug = self.Mem_1(N_x)
+            Mem_2_aug = self.Mem_2(N_x)
 
-            x = torch.cat((x, (torch.cat([N_aug + A_Naug, A_aug + N_Aaug], dim=0))), dim=-1)
+            x = torch.cat((x, (torch.cat([Mem_1_Naug + Mem_2_aug, Mem_1_aug + Mem_2_Aaug], dim=0))), dim=-1)
             pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
 
             return {
                 "frame": pre_att,
             }
         else:
-            A_aug = self.Amemory(x)
-            N_aug = self.Nmemory(x)
+            Mem_1_aug = self.Mem_1(x)
+            Mem_2_aug = self.Mem_2(x)
 
-            x = torch.cat([x, N_aug + A_aug], dim=-1)
+            x = torch.cat([x, Mem_1_aug + Mem_2_aug], dim=-1)
 
             pre_att = self.cls_head(x).reshape((b, n, -1)).mean(1)
             return {"frame": pre_att}
@@ -97,8 +97,8 @@ class FadNet(Module):
 
 if __name__ == "__main__":
     torch.cuda.set_device(1)  # set your gpu device
-    m = FadNet(input_size=512, flag="Train", a_nums=60, n_nums=60).cuda()
-    src = torch.rand(128, 200, 512).cuda()
+    m = FadNet(input_size=1024, flag="Train", a_nums=60, n_nums=60).cuda()
+    src = torch.rand(128, 200, 1024).cuda()
     out = m(src)["frame"]
 
     print(out.size())
